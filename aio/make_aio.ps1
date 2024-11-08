@@ -247,6 +247,26 @@ function CreateSingleFile {
         $_ = [regex]::Replace($_, "Private Sub ResetMatcherState\(", "Public Sub ResetMatcherState(")
         $_ = [regex]::Replace($_, "Private Type RegexTy", "Public Type RegexTy")
         $_ = [regex]::Replace($_, "Private Type MatcherStateTy", "Public Type MatcherStateTy")
+        # Renaming public types/subs/functions to prevent conflicts (for example, StaticRegex.Replace overrides the Visual Basic for Applications standard Replace function)
+        #    types:
+        $_ = [regex]::Replace($_, "RegexTy", "srRegexTy")
+        $_ = [regex]::Replace($_, "MatcherStateTy", "srMatcherStateTy")
+        #    subroutines:
+        $_ = [regex]::Replace($_, " InitializeRegex", " srInitializeRegex")
+        $_ = [regex]::Replace($_, " MatchThenList", " srMatchThenList")
+        $_ = [regex]::Replace($_, " InitializeMatcherState", " srInitializeMatcherState")
+        $_ = [regex]::Replace($_, " ResetMatcherState", " srResetMatcherState")
+        #    functions:
+        $_ = [regex]::Replace($_, " TryInitializeRegex",  " srTryInitializeRegex")
+        $_ = [regex]::Replace($_, " Test",  " srTest")
+        $_ = [regex]::Replace($_, "Function Match\(", "Function srMatch(")
+        $_ = [regex]::Replace($_, " Match =", " srMatch =")
+        $_ = [regex]::Replace($_, " GetCaptureByName", " srGetCaptureByName")
+        $_ = [regex]::Replace($_, " GetCapture\(", " srGetCapture(")
+        $_ = [regex]::Replace($_, " GetCapture =", " srGetCapture =")
+        $_ = [regex]::Replace($_, " MatchNext", " srMatchNext")
+        $_ = [regex]::Replace($_, " Replace", " srReplace")
+        $_ = [regex]::Replace($_, " MatchThenJoin", " srMatchThenJoin")
         $_
     }
 
